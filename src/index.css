@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,5 +16,32 @@ html, body {
   overflow-x: hidden;       
   overflow-y: auto;         
   scroll-behavior: smooth;
+  font-family: 'Patrick Hand', cursive, sans-serif;
 }
 
+/* Custom Utilities */
+.bg-wood {
+  background-color: #d2b48c;
+  background-image: 
+    linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05)), 
+    linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05));
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+.font-handwriting {
+  font-family: 'Patrick Hand', cursive;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import wallImg from "../assets/scene 3/wall.png";
 import teadyImg from "../assets/scene 3/teady.png";
 import openDoarImg from "../assets/scene 3/openDoar.png";
@@ -8,14 +9,15 @@ import frameImg from "../assets/scene 3/frame.png";
 import doarImg from "../assets/scene 3/doar.png";
 import selfImg from "../assets/scene 3/self.png";
 
-function Garage() {
+function MrBeansRoom() {
   const [lightsOff, setLightsOff] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
-  const navigate = useNavigate(); // <-- required for routing
+  const navigate = useNavigate();
 
   const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
     const bounds = containerRef.current.getBoundingClientRect();
     setCursorPos({
       x: e.clientX - bounds.left,
@@ -53,7 +55,6 @@ function Garage() {
         src={teadyImg}
         alt="Teddy"
         className="absolute top-[70%] left-[73%] w-[150px] cursor-pointer z-20"
-        onClick={() => navigate("/car-game")}
       />
 
       {/* 👨 Mr. Bean → paint */}
@@ -69,43 +70,44 @@ function Garage() {
         src={frameImg}
         alt="Wall Frame"
         className="absolute top-[20%] left-[30%] w-[150px] cursor-pointer z-20"
-        onClick={() => navigate("/quiz")}
       />
 
-      {/* 🪟 Shelf → Mr. Bean Garage */}
+      {/* 🪟 Shelf → Garage (Escape Room) */}
       <img
         src={selfImg}
         alt="Shelf"
         className="absolute top-[-2%] left-[71%] w-[450px] cursor-pointer z-20"
-        onClick={() => navigate("/garage")}
       />
 
       {/* 🚪 Closed Door */}
-      <img
+      <motion.img
         src={doarImg}
         alt="Closed Door"
-        className={`absolute bottom-[4%] left-[4%] w-[430px] cursor-pointer z-50 transition-opacity duration-500 ${
-          lightsOff ? "opacity-0" : "opacity-100"
-        }`}
+        className={`absolute bottom-[4%] left-[4%] w-[430px] cursor-pointer z-50 transition-opacity duration-500 ${lightsOff ? "opacity-0" : "opacity-100"}`}
         onClick={handleTurnOffLights}
+        animate={{
+          x: [0, -5, 5, -5, 5, 0],
+        }}
+        transition={{
+          duration: 0.5,
+          delay: 5.0,
+          repeat: 1,
+          repeatDelay: 0.5,
+        }}
       />
 
       {/* 🚪 Open Door */}
       <img
         src={openDoarImg}
         alt="Open Door"
-        className={`absolute top-[29%] left-[7%] w-[300px] z-[70] cursor-pointer transition-all duration-500 ${
-          lightsOff ? "block" : "hidden"
-        }`}
+        className={`absolute top-[29%] left-[7%] w-[300px] z-[70] cursor-pointer transition-all duration-500 ${lightsOff ? "block" : "hidden"}`}
         onClick={handleTurnOnLights}
       />
 
       {/* 💡 Darkness Overlay */}
       {overlayVisible && (
         <div
-          className={`absolute top-0 left-0 w-full h-full z-[60] pointer-events-none transition-opacity duration-1000 ease-in-out ${
-            lightsOff ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute top-0 left-0 w-full h-full z-[60] pointer-events-none transition-opacity duration-1000 ease-in-out ${lightsOff ? "opacity-100" : "opacity-0"}`}
           style={{
             background: `radial-gradient(circle 120px at ${cursorPos.x}px ${cursorPos.y}px, transparent 0%, rgba(0,0,0,0.98) 100%)`,
           }}
@@ -115,4 +117,4 @@ function Garage() {
   );
 }
 
-export default Garage;
+export default MrBeansRoom;

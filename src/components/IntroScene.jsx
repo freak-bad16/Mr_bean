@@ -93,14 +93,7 @@ const IntroScene = () => {
         ease: "power2.out",
       });
 
-    // Scroll downward (to next 100vh) after 5 seconds
-    setTimeout(() => {
-      gsap.to(window, {
-        scrollTo: { y: window.innerHeight },
-        duration: 1.5,
-        ease: "power2.inOut",
-      });
-    }, 5000);
+
   }, []);
 
   return (
